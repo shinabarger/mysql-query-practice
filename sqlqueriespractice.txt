@@ -1,0 +1,14 @@
+PRACTICE MYSQL QUERIES
+
+SELECT helpcontent.cont_id, helpcontent_assoc.cont_assoc_id, user_mapping.company_type_id
+FROM helpcontent
+JOIN helpcontent_assoc ON helpcontent.cont_id = helpcontent_assoc.cont_id
+JOIN user_mapping ON user_mapping.company_type_id = helpcontent_assoc.company_type_id
+WHERE user_mapping.user_mapping_id = 699
+AND helpcontent.cont_type = "training"
+
+Write a query that shows the population density of China, Australia, Nigeria
+SELECT name, population/area
+FROM world
+WHERE name 
+IN ('china', 'australia', 'nigeria')
