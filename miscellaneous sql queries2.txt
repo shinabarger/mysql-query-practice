@@ -1,0 +1,101 @@
+use [AdventureWorks2012]
+
+--
+SELECT * FROM [HumanResources].Department
+
+--show me all department names
+
+SELECT name FROM [HumanResources].Department
+
+select groupname from HumanResources.Department
+
+-- show me all unique/distinct groupname
+
+select distinct groupname from HumanResources.Department
+
+-- use filtering (where clause example)
+
+select distinct groupname from HumanResources.Department WHERE groupname LIKE '%manufacturing%'
+
+-- provide all employees from the employee table
+
+select * from HumanResources.Employee
+
+-- give me a list of all employees who have an orglevel = 2
+select * from HumanResources.Employee WHERE OrganizationLevel = 2
+
+-- create a list of all employees who have an org level of two or three
+select * from HumanResources.Employee WHERE OrganizationLevel IN (2,3)
+
+-- list of employees with title as facilities manager
+select * from HumanResources.Employee WHERE JobTitle LIKE '%Manager%'
+
+--this is an example of a calculated column
+SELECT name, listprice FROM Production.Product
+
+SELECT NAME, listprice, listprice + 10 AS ADJUSTED_LIST_PRICE FROM Production.Product
+
+--into takes the new selection and puts it into a new table - whatever you want to call the new table you will put after the INTO section.
+SELECT NAME, listprice, listprice + 10 AS ADJUSTED_LIST_PRICE INTO Production.Product_2 FROM Production.Product
+
+SELECT * FROM Production.Product_2
+
+	SELECT NAME, LISTPRICE, LISTPRICE + 10 AS ADJUSTED_LIST_PRICE INTO #tmpname FROM Production.Product
+
+	SELECT * FROM #tmpname
+
+	--how to delete stuff from a table
+	DELETE FROM Production.Product_2 WHERE NAME LIKE '%Bearing Ball%'
+
+	SELECT * FROM Production.Product_2
+
+	--update statement is a stmt that updates a table with a given role
+	--example: says to update this table information -- basically change & replace whatever information you provide
+
+	UPDATE Production.Product_2
+	SET NAME = 'BLADE_NEW'
+	WHERE NAME LIKE 'BLADE'
+
+	create table myemployee (employeeid INT, firstname varchar(20), lastname varchar(20))
+
+	insert into myemployee values (1, 'Michael', 'Scott')
+	insert into myemployee values (2, 'Pam', 'Beesley')
+	insert into myemployee values (3, 'Dwight', 'Schrute')
+
+	select * from myemployee
+
+	create table salaryinformation (Employeeid INT, salary FLOAT)
+
+	insert into salaryinformation values (1, 1000)
+	insert into salaryinformation values (2, 2000)
+	insert into salaryinformation values (3, 3000)
+
+	--example of a simple inner join -- will give all common roles that they match
+
+	select A.firstname, A.lastname, B.salary from myemployee A INNER JOIN salaryinformation B ON A.EMPLOYEEID = B.EmployeeID
+
+	create table phone (Employeeid int, phonenumber int)
+
+	INSERT into phone values (1, 342242222)
+	INSERT into phone values (2, 431234567)
+
+	select * from myemployee
+
+	select * from phone
+
+	select A.FIRSTNAME, A.lastname, B.phonenumber from myemployee A LEFT JOIN phone B ON A.employeeid = B.Employeeid
+
+	select A.FIRSTNAME, A.lastname, B.phonenumber from myemployee A RIGHT JOIN phone B ON A.employeeid = B.Employeeid
+
+	CREATE TABLE myparking (EmployeeID INT, parkingspot VARCHAR(20))
+
+	insert into myparking values (1, 'a1')
+	insert into myparking values (2, 'a2')
+
+	select * from myemployee
+	select * from myparking
+
+	-- right join example
+	select * from myparking A RIGHT JOIN myemployee B ON A.EmployeeID = B.employeeid
+
+	--full outer join -- selects everything basically
